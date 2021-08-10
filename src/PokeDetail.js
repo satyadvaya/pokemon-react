@@ -16,7 +16,7 @@ class PokeDetail extends Component {
 
     render() { 
         console.log(this.props.match);
-        const { id } = this.props.match.params;
+        // const { id } = this.props.match.params;
         const { data } = this.state;
         return (
             <section>
