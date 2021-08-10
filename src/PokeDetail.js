@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './PokeDetail.css';
 
 class PokeDetail extends Component {
     state = {data: {} };
@@ -22,7 +23,9 @@ class PokeDetail extends Component {
             <section>
                 <h1>{data.pokemon}</h1>
                 {/* <p>Poke ID: {id}</p> */}
-                <img src={data.url_image} alt='poke' />
+                <div className='poke-detail'>
+                    <img src={data.url_image} alt='poke' />
+                </div>
             </section>
         );
     }

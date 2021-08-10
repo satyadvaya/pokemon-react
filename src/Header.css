@@ -24,7 +24,12 @@ header {
 
 }
 
-a.active {
+/* a.active {
     text-decoration: none;
     color: red;
+} */
+
+.links a.active,
+.links a:hover {
+    color: #f8f4a6;
 }
