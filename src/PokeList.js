@@ -5,11 +5,11 @@ class PokeList extends Component {
     // state = {  }
     render() { 
         return (
-            <ul>
+            <div className='poke-list'>
                 {this.props.pokedex.map((poke) => {
                     return <PokeItem key={poke.pokemon} beast={poke} />
                 })}
-            </ul>
+            </div>
         );
     }
 }

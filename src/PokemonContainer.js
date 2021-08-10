@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PokeList from './PokeList.js';
 
 class PokemonContainer extends Component {
-  state = { data: [], loading: true, query: null, sortOrder: 'asc' };
+  state = { data: [], loading: true, query: null, sortOrder: 'asc', page: 1, lastPage: 1 };
   
   componentDidMount() {
     this.fetchPokemon();
@@ -15,6 +15,7 @@ class PokemonContainer extends Component {
 
     let url = "https://pokedex-alchemy.herokuapp.com/api/pokedex"
     let searchParams = new URLSearchParams();
+    searchParams.set('page', this.state.page);
 
     if (this.state.query) {
       searchParams.set('pokemon', this.state.query);
@@ -27,9 +28,10 @@ class PokemonContainer extends Component {
     url = url + `?${searchParams.toString()}`;
     let response = await fetch(url);
     let data = await response.json();
+    const lastPage = Math.ceil(data.count / data.perPage);
 
     setTimeout(() => {
-      this.setState({ data: data.results, loading: false });
+      this.setState({ data: data.results, loading: false, lastPage });
     }, 1000);
   }
   
@@ -40,17 +42,48 @@ class PokemonContainer extends Component {
     this.setState({ sortOrder: event.target.value });
   }
 
+  previousPage = async () => {
+    await this.setState({ page: this.state.page -1 });
+    this.fetchPokemon();
+  }
+  nextPage = async () => {
+    await this.setState({ page: this.state.page +1 });
+    this.fetchPokemon();
+  }
+  lastPage = async () => {
+    await this.setState({ page: this.state.lastPage });
+    this.fetchPokemon();
+  }
+
+  searchPokemon = async () => {
+    await this.setState({ page: 1 });
+    this.fetchPokemon();
+  }
+
   render() {
     const { loading, sortOrder } = this.state;
     return ( 
       <>
         <h1>Pokemon Characters!</h1>
-        <select defaultValue={sortOrder} onChange={this.updateSort}>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
+        <div className='search-controls'>
+          <select defaultValue={sortOrder} onChange={this.updateSort}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
         <input onChange={this.updateQuery} type='text'></input>
-        <button onClick={this.fetchPokemon}>Search!</button>
+        <button onClick={this.searchPokemon}>Search!</button>
+        </div>
+        <div className='page-controls'>
+          {this.state.page > 1 && (
+            <button onClick={this.previousPage}>Backward</button>
+          )}
+          {this.state.page < this.state.lastPage && (
+            <>
+              <button onClick={this.nextPage}>Forward</button>
+              <button onClick={this.lastPage}>End Page</button>
+            </>
+          )}
+        </div>
         {loading && <h3>Patience, Please ...</h3>}
         {!loading && (
           <section>
