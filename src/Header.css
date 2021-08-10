@@ -1,0 +1,30 @@
+header {
+    width: 100vw;
+    height: 100px;
+    background-color: #282c34;
+    color: white;
+    font-size: 2rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: space-between;
+}
+
+.links {
+    text-transform: none;
+    font-weight: normal;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.links a {
+    color: white;
+
+}
+
+a.active {
+    text-decoration: none;
+    color: red;
+}
