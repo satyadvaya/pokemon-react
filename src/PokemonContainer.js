@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PokeList from './PokeList.js';
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 class PokemonContainer extends Component {
   state = { data: [], loading: true, query: null, sortOrder: 'asc', page: 1, lastPage: 1 };
@@ -62,7 +64,7 @@ class PokemonContainer extends Component {
 
   render() {
     const { loading, sortOrder } = this.state;
-    return ( 
+    return (
       <>
         <h1>Pokemon Characters!</h1>
         <div className='search-controls'>
@@ -84,7 +86,9 @@ class PokemonContainer extends Component {
             </>
           )}
         </div>
-        {loading && <h3>Patience, Please ...</h3>}
+        {loading && <Loader
+          type="Rings" color="#00BFFF" height={80} width={80} //3 secs
+        />}
         {!loading && (
           <section>
             <PokeList pokedex={this.state.data} />
