@@ -1,9 +1,30 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
 .poke-detail {
-    width: 100px;
+    background-color: darkseagreen;
+    width: 250px;
+    height: 400px;
+    margin: 10px;
+    border-radius: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    color: whitesmoke;
+}
+
+h3 {
+    font-style: italic;
 }
 
 .poke-detail img {
-    width: 100%;
-    border: 5px solid #282c34;
-    border-radius: 50%;
+    width: 150px;
 }
